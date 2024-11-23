@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import AccountsList from "./components/AccountsList";
+import CompteDetails from "./components/compteDetails";
+import AddCompte from "./components/AddCompte";
 
-function App() {
+const App = () => {
+  const [selectedCompteId, setSelectedCompteId] = useState(null);
+
+  const handleSelectAccount = (compteId) => {
+    setSelectedCompteId(compteId);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>GraphQL Accounts Management</h1>
+      <AddCompte />
+      <h2>All Accounts</h2>
+      <AccountsList onSelectAccount={handleSelectAccount} />
+      {selectedCompteId && (
+        <div>
+          <h2>Selected Account Details</h2>
+          <CompteDetails compteId={selectedCompteId} />
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default App;
